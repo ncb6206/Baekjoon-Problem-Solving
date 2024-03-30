@@ -12,10 +12,9 @@ for i in range(N):
         index = i
     answer.append(word)
 
-if index == N-1:
-    first = answer[index-1][-1]
-else:
-    first = answer[index-1][-1]
+first = answer[index-1][-1]
+
+if index != N-1:
     last = answer[index+1][0]
 
 M = int(input())
@@ -25,4 +24,3 @@ for _ in range(M):
     if first == word[0] and last == word[-1]:
         if not word in answer:
             print(word)
-
