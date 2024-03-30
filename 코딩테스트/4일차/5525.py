@@ -7,19 +7,17 @@ S = input()
 
 pattern = 0
 count = 0
+i = 0
 
-for i in range(M):
-    pattern = 0
+while i <= M:
     if S[i:i+3] == 'IOI':
         pattern += 1
-        j = i+3
-        while j <= M:
-            if pattern == N:
-                count += 1
-                break
-            if S[j:j+2] != 'OI':
-                break
-            pattern += 1
-            j += 2
+        i += 2
+        if pattern == N:
+            count += 1
+            pattern -= 1    
+    else:
+        i += 1
+        pattern = 0        
 
 print(count)
