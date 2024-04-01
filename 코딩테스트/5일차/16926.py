@@ -4,8 +4,7 @@ import sys
 input = sys.stdin.readline
 
 N,M,R = map(int,input().split())
-
-nemo = [list(input().split()) for _ in range(N)]
+nemo = [list(map(int,input().split())) for _ in range(N)]
 
 for _ in range(R):
     for i in range(min(N,M)//2):
@@ -31,7 +30,7 @@ for _ in range(R):
             value = temp
         
         for j in range(i+1,M-i):
-            y = N - j - 1
+            y = M - j - 1
             temp = nemo[x][y]
             nemo[x][y] = value
             value = temp
