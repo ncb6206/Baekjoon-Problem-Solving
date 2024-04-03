@@ -2,51 +2,29 @@ import sys
 from collections import deque
 input = sys.stdin.readline
 
+# 풍선의 개수 n을 입력
 n = int(input())
-balloon = deque(map(int,input().split()))
-cache = balloon
-count = 1
+
+# 풍선의 인덱스와 숫자를 덱으로 생성합니다.
+balloon = deque(enumerate(map(int, input().split()), start=1))
+
+# 풍선이 터지는 인덱스를 저장할 리스트
 result = []
 
-for _ in range(n):
-    move = cache.popleft()
-    cache.appendleft(0)
-    result.append(count)
-    print('0돌리기 전')
-    print(cache)
-    print(move,count)
-    while cache[0] == 0:
-        temp = cache.popleft()
-        cache.append(temp)
-        move -= 1
-        count += 1
-        if count == n+1:
-            count = 1
+# 풍선을 모두 터뜨릴 때까지 반복
+while balloon:
+    # 가장 앞에 있는 풍선을 꺼냄
+    temp = balloon.popleft()
+    # 풍선의 인덱스를 결과 리스트에 추가
+    result.append(temp[0])
+    # 풍선을 이동시킬 칸 수를 가져옴
+    move = temp[1]
     
-    print('0돌리기 후')
-    print(cache)
-    print(move,count)
-                
-    while move != 0:
-        if move > 0:
-            temp = cache.popleft()
-            if(temp != 0):
-                move -= 1
-            cache.append(temp)
-            count += 1
-            if count == n+1:
-                count = 1
-        elif move < 0:
-            temp = cache.pop()
-            if(temp != 0):
-                move += 1
-            cache.appendleft(temp)
-            count -= 1
-            if count == 0:
-                count = n
+    # 이동할 칸 수에 따라 풍선을 이동시킴
+    if move > 0:
+        balloon.rotate(-(move - 1))  # 오른쪽으로 이동
+    elif move < 0:
+        balloon.rotate(abs(move))  # 왼쪽으로 이동
 
-        print(cache)
-        print(move,count)
-    print('---------------------')
-
-print(result)
+# 결과 리스트를 공백을 기준으로 출력
+print(*result)
