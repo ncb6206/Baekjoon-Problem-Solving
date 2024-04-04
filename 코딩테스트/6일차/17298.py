@@ -1,49 +1,17 @@
+# 결국 정답 본 거 이거 정답 안봤으면 절대 못 풀었을듯...
+
 import sys
 from collections import deque
 input = sys.stdin.readline
 
-a = int(input())
-nge = list(map(int,input().rstrip().split()))
+n = int(input())
+a = list(map(int,input().rstrip().split()))
+nge = [-1]*n
+stack = [0]
 
-stack = []
-result = []
-i = 0
-imsi = 0
-count = 0
-
-for i in range(len(nge)):
-    if i == 0:
-        imsi = nge[i]
-    else:        
-        if imsi >= nge[i]:
-            stack.append(nge[i])
-        else:
-            count += 1
-            stack.append(imsi)
-            imsi = nge[i]
-            while stack:
-                result.append(imsi)
-                stack.pop()
-
-while stack:
-    temp = stack[0]
-    tempStack = []
-    for i in range(1,len(stack)):
-        if temp >= stack[i]:
-            tempStack.append()
+for i in range(1,n):
+    while stack and a[stack[-1]] < a[i]:
+        nge[stack.pop()] = a[i]
+    stack.append(i)
     
-    
-
-if count == 0:
-    result.append(-1)
-    
-if stack:
-    temp = stack.pop()
-    while stack:
-        stack.pop()
-        result.append(temp)
-    result.append(-1)
-else:
-    result.append(-1)
-                
-print(*result)
+print(*nge)
