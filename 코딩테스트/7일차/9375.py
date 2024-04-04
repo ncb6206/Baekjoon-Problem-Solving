@@ -1,21 +1,19 @@
 import sys
 import math
-from collections import Counter
-from itertools import combinations
+from collections import defaultdict
 input = sys.stdin.readline
 
 t = int(input())
 result = []
 
 for _ in range(t):
-    temp = []
+    wear = defaultdict(int)
     
     n = int(input())
     for _ in range(n):
         name, type = map(str,input().rstrip().split())
-        temp.append(type)
-    
-    wear = Counter(temp)
+        wear[type] += 1
+        
     cnt = 1
     for i in wear.values():
         cnt *= i + 1
