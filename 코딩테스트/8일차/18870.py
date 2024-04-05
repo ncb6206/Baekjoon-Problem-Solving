@@ -1,3 +1,5 @@
+# 정답 안보고 풀긴 했는데 이건 좀 가라로 한듯;;
+
 import sys
 input = sys.stdin.readline
 
@@ -27,3 +29,19 @@ for i in range(1,len(x)):
         result[x[i][0]] = count
 
 print(*result)
+
+# 이게 정석 답인듯 
+# x = list(map(int,input().split()))
+# dict = {}
+# result = []
+
+# setX = list(set(x))
+# setX.sort()
+
+# for i in range(len(setX)):
+#     dict[setX[i]] = i
+
+# for j in x:
+#     result.append(dict[j])
+
+# print(*result)
