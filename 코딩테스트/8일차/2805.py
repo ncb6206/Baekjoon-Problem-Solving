@@ -29,6 +29,7 @@ while left <= right:
     # 집으로 가져가려고 하는 나무의 길이가 m보다 작을 경우, 더 작은 절단기 높이를 위해 right 값으로 이동            
     else:
         right = mid - 1
+    print(mid, remain, left, right)
     
 # 최적의 절단기 높이 값을 구하고 출력
 print(result)
