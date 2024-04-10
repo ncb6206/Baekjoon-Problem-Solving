@@ -6,31 +6,26 @@ W = [list(map(int,input().split()))for _ in range(N)]
 minVal = float('inf')
 visited = [False] * N
 
-def backtracking(start,end,hap):    
+def backtracking(start,now,hap,cnt):    
     global minVal
-    allCheck = True
+    if cnt == N and W[now][start]:
+        hap += W[now][start]
+        if minVal > hap:
+            minVal = hap
+        return
+    
+    if hap > minVal:
+        return
+        
     for i in range(N):
-        if not visited[i]:
-            allCheck = False
+        if not visited[i] and W[now][i]:
             visited[i] = True
-            if W[start][i] == 0:
-                visited[i] = False
-                continue
-            hap += W[start][i]
-            print(f"start:{start}, end:{i}, hap={hap}")
-            backtracking(i,end,hap)
-            hap -= W[start][i]
+            backtracking(start, i, hap + W[now][i], cnt+1)
             visited[i] = False
-    if allCheck and W[start][end] != 0:
-        hap += W[start][end]
-        print(f"start:{start}, end:{end}, hap={hap}")
-        minVal = min(minVal,hap)    
-    print('--------------------------')
 
 for i in range(N):
     visited[i] = True
-    print(f"Start:{i}")
-    backtracking(i,i,0)
+    backtracking(i,i,0,1)
     visited[i] = False
 
 print(minVal)
