@@ -1,35 +1,27 @@
 import sys
 input = sys.stdin.readline
 
-S = list(input().rstrip())
-T = list(input().rstrip())
-needA = T.count('A')
-needB = T.count('B')
-countA = S.count('A')
-countB = S.count('B')
-can = 0
+S = input().rstrip()        # 문자열 S 입력받기
+T = input().rstrip()        # 문자열 T 입력받기
 
-def bfs(word):
-    global countA,countB,can,needA,needB
-    if countA < needA:
-        word.append('A')
-        countA += 1
-        bfs(word)
-        countA -= 1
-    if countB < needB:
-        word.append('B')
-        countB += 1
-        word.reverse()
-        bfs(word)
-        countB -= 1
-    if len(word) == len(T):
-        isTrue = True
-        for i in range(len(word)):
-            if word[i] != T[i]:
-                isTrue = False
-                break
-        if isTrue:
-            can = 1
+def dfs(word):
+    # 문자열의 길이가 S와 같다면
+    if len(S) == len(word):
+        # S와 일치한다면 1 출력 후 프로그램 종료
+        if word == S:
+            print(1)
+            exit(0)
+        # S와 일치하지 않는다면 0 반환
+        else:
+            return 0
 
-bfs(S)        
-print(can)
+    # 마지막 문자가 A라면 마지막 문자를 제거하고 재귀 호출
+    if word[-1] == 'A':        
+        dfs(word[:-1])    
+    
+    # 첫 번째 문자가 B라면 문자열을 뒤집고 첫 번째 문자를 제거한 뒤 재귀 호출
+    if word[0] == 'B':
+        dfs(word[::-1][:-1])
+
+dfs(T)      # T로 시작하여 깊이 우선 탐색 수행
+print(0)    # 찾지 못한 경우 0 출력
